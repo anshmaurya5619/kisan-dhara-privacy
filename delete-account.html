@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Request deletion of your Kisan Dhara account and associated personal data." />
+  <title>Kisan Dhara - Account Deletion Request</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 24px 14px; background: #f1f7f1;
+      color: #202820; font: 16px/1.6 Arial, sans-serif;
+    }
+    .container {
+      max-width: 680px; margin: 0 auto; padding: 26px;
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 3px 16px rgba(0,0,0,.08);
+    }
+    h1 { color: #1b5e20; line-height: 1.25; font-size: 26px; }
+    h2 { color: #2e7d32; font-size: 18px; margin-top: 24px; }
+    .notice {
+      padding: 13px 15px; background: #e8f5e9;
+      border-left: 4px solid #2e7d32; border-radius: 6px;
+    }
+    label { display: block; margin: 15px 0 6px; font-weight: 700; }
+    input, select, textarea {
+      width: 100%; padding: 12px; border: 1px solid #b9c8ba;
+      border-radius: 7px; font: inherit; background: #fff;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    button {
+      margin-top: 20px; padding: 13px 18px; width: 100%;
+      border: 0; border-radius: 8px; color: white;
+      background: #2e7d32; font-size: 16px; font-weight: 700; cursor: pointer;
+    }
+    button:hover { background: #1b5e20; }
+    a { color: #1b5e20; }
+    .small { color: #526052; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Kisan Dhara - Account Deletion</h1>
+    <p>Use this page to request deletion of your Kisan Dhara account and the personal data associated with it. You do not need to reinstall or sign in to the app to submit a request.</p>
+
+    <div class="notice">
+      <strong>Before you submit:</strong> Enter the email address or mobile number registered with your Kisan Dhara account. We may contact you to verify that you own the account. Do not enter your password or OTP.
+    </div>
+
+    <h2>Submit a deletion request</h2>
+    <form id="deletionForm">
+      <label for="fullName">Name on your account</label>
+      <input id="fullName" name="fullName" autocomplete="name" required maxlength="100" />
+
+      <label for="registeredContact">Registered email address or mobile number</label>
+      <input id="registeredContact" name="registeredContact" required maxlength="120" autocomplete="email" />
+
+      <label for="requestType">Request</label>
+      <select id="requestType" name="requestType" required>
+        <option value="Delete my Kisan Dhara account and associated personal data" selected>Delete my account and associated personal data</option>
+        <option value="Ask a question about account or data deletion">Ask a question about account or data deletion</option>
+      </select>
+
+      <label for="details">Additional details (optional)</label>
+      <textarea id="details" name="details" maxlength="1000" placeholder="Do not include passwords, OTPs, or sensitive documents."></textarea>
+
+      <label style="display:flex;gap:9px;align-items:flex-start;font-weight:400">
+        <input id="confirm" type="checkbox" required style="width:auto;margin-top:5px" />
+        I confirm that I am the account holder or authorized to make this request.
+      </label>
+
+      <button type="submit">Prepare deletion request email</button>
+    </form>
+
+    <p class="small">When you submit, your device's email app will open with the request addressed to <a href="mailto:infokisandhara@gmail.com">infokisandhara@gmail.com</a>. Review and send that email to complete submission. If no email app opens, send your request manually to this address using the registered email or mobile number.</p>
+
+    <h2>What happens next?</h2>
+    <p>We may verify account ownership before processing the request. Eligible requests will be handled within the period described in the Privacy Policy. Some information may be retained where required by applicable law; any such retention will be limited to that legal purpose.</p>
+    <p>For details about data collection and handling, read the <a href="./index.html">Kisan Dhara Privacy Policy</a>.</p>
+  </main>
+
+  <script>
+    document.getElementById("deletionForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!this.reportValidity()) return;
+      const name = document.getElementById("fullName").value.trim();
+      const contact = document.getElementById("registeredContact").value.trim();
+      const request = document.getElementById("requestType").value;
+      const details = document.getElementById("details").value.trim();
+      const body = [
+        "Kisan Dhara account/data deletion request",
+        "",
+        "Account name: " + name,
+        "Registered email/mobile: " + contact,
+        "Request: " + request,
+        "Additional details: " + (details || "None"),
+        "",
+        "I confirm that I am the account holder or authorized to make this request."
+      ].join("\n");
+      const mailto = "mailto:infokisandhara@gmail.com"
+        + "?subject=" + encodeURIComponent("Kisan Dhara Account Deletion Request")
+        + "&body=" + encodeURIComponent(body);
+      window.location.href = mailto;
+    });
+  </script>
+</body>
+</html>
